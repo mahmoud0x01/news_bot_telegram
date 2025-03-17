@@ -25,7 +25,7 @@
 1. **Клонируйте репозиторий**
 
 ```bash
-git clone https://github.com/yourusername/telegram-news-bot.git cd telegram-news-bot
+git clone https://github.com/mahmoud0x01/news_bot_telegram.git && cd news_bot_telegram
 ```
 
 2. **Настройте бота**

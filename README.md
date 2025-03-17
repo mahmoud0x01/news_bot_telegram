@@ -28,7 +28,7 @@
 git clone https://github.com/yourusername/telegram-news-bot.git cd telegram-news-bot
 ```
 
-- Настройте бота
+2. Настройте бота
 
 - В файле `config.py` настройте источники новостей:
 
@@ -57,7 +57,7 @@ NEWS_SOURCES = {    "bloomberg": "bloomberg",    "kommersant": "kommersant",    
     ........
 ```
 
-1. Соберите и запустите:
+3. Соберите и запустите:
 
 ```bash
 docker-compose up --build -d

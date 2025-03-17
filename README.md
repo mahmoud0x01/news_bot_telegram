@@ -78,6 +78,9 @@ NEWS_SOURCES = {
    - /listsubscriptions - View your active subscriptions.
 
 
+## screenshots 
+can be found at [screenshots](/screenshots/)
+
 # Database Schema
 
 The Telegram News Bot uses a PostgreSQL database managed via SQLAlchemy to store user information and subscription preferences. Below is the schema for the database models defined in `modules/db.py`.

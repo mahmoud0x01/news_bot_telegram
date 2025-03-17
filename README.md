@@ -75,7 +75,7 @@ docker-compose up --build -d
 
 ## Скриншоты
 
-Скриншоты можно найти в разделе [screenshots]()
+Скриншоты можно найти в разделе [screenshots](/screenshots)
 
 # Схема базы данных
 

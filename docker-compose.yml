@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  bot:
+    build: .
+    environment:
+      - TELEGRAM_TOKEN=REDACTED
+      - NEWSAPI_KEY=REDACTED
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_HOST=db
+      - DB_NAME=news_bot
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=news_bot
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -1,0 +1,6 @@
+aiogram==2.25.1
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+aiohttp==3.8.6  # Changed from 3.9.1 to a compatible version
+beautifulsoup4==4.12.2
+python-dotenv==1.0.0

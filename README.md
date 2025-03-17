@@ -1,136 +1,138 @@
 # Telegram News Bot
 
-A Telegram bot built with Python and `aiogram` that fetches news from various sources, allows users to set default news sources, and provides subscription-based news updates at customizable intervals.
+Телеграм-бот, созданный с использованием Python и библиотеки aiogram, который собирает новости из различных источников, позволяет пользователям устанавливать источники новостей по умолчанию и предоставляет обновления новостей по подписке с настраиваемыми интервалами.
 
-## Features
+## Возможности
 
-- Fetch news on-demand with `/news <source>` (e.g., `/news bbc`).
-- Set a default news source with `/setsource <source>`.
-- Subscribe to periodic news updates with `/subscribe` and choose intervals (e.g., every 1 minute, 1 hour, or 1 day).
-- Unsubscribe from news sources with `/unsubscribe <source>`.
-- List available news sources with `/listsources`.
-- View active subscriptions with `/listsubscriptions`.
-- Persistent storage of user preferences and subscriptions using a database.
-- Docker Compose support for easy deployment.
+- Получение новостей по запросу с помощью команды /news <источник> (например, /news bbc).
+- Установка источника новостей по умолчанию с помощью /setsource <источник>.
+- Подписка на периодические обновления новостей с помощью /subscribe и выбор интервалов (например, каждую минуту, каждый час или каждый день).
+- Отписка от источников новостей с помощью /unsubscribe <источник>.
+- Просмотр списка доступных источников новостей с помощью /listsources.
+- Просмотр активных подписок с помощью /listsubscriptions.
+- Постоянное хранение предпочтений пользователей и подписок в базе данных.
+- Поддержка Docker Compose для удобного развертывания.
 
-## Prerequisites
+## Требования
 
-- Python 3.8+
-- A Telegram Bot Token (obtained from [BotFather](https://t.me/BotFather))
-- Docker (optional, if using Docker Compose)
-- NEWSAPI KEYS (obtained from [NEWSAPI](https://newsapi.org/)_
+- Python 3.8 или выше
+- Токен бота Telegram (получите у [BotFather](https://t.me/BotFather))
+- Docker (опционально, если используется Docker Compose)
+- Ключи NEWSAPI (получите на [NEWSAPI](https://newsapi.org/))
 
+## Установка
 
-## Setup
-
-1. Clone the Repository
+1. Клонируйте репозиторий
 
 ```bash
-git clone https://github.com/yourusername/telegram-news-bot.git
-cd telegram-news-bot
+git clone https://github.com/yourusername/telegram-news-bot.git cd telegram-news-bot
 ```
 
-2. Configure the Bot
+- Настройте бота
 
-- in `config.py` setup your news sources accordingly`
+- В файле `config.py` настройте источники новостей:
+
 ```python
-NEWS_SOURCES = {
-    "bloomberg": "bloomberg",
-    "kommersant": "kommersant",
-    "reuters": "reuters",
-    "bbc": "bbc-news"  # Adjusted to match NewsAPI source IDs
-}
+NEWS_SOURCES = {    "bloomberg": "bloomberg",    "kommersant": "kommersant",    "reuters": "reuters",    "bbc": "bbc-news"  # Соответствует идентификаторам источников NewsAPI }
 ```
 
-**The bot uses a database postgresql (via SQLAlchemy) to store users and subscriptions. By default, it initializes on startup:**
+**Бот использует базу данных PostgreSQL (через SQLAlchemy) для хранения данных о пользователях и подписках. По умолчанию инициализация происходит при запуске:**
 
-- Ensure your `modules/db.py` file is configured with a database URL (e.g., SQLite or PostgreSQL).
+- Убедитесь, что файл `modules/db.py` настроен с указанием URL базы данных (например, SQLite или PostgreSQL).
 
-- Create a `.env` file in the project root if not existed :
+- Создайте файл `.env` в корневой директории проекта, если его нет:
 
   ```text
-  TELEGRAM_TOKEN=your-telegram-bot-token-here
-  NEWSAPI_KEY=NEWSAPIKEY
+  TELEGRAM_TOKEN=ваш-токен-бота-telegram
+  NEWSAPI_KEY=КЛЮЧ_NEWSAPI
   ```
-- Edit `docker-compose.yml` to include also **TELEGRAM_TOKEN , NEWSAPI_KEY , DB_USER , DB_PASSWORD,** :
-```text
-    environment:
-      - TELEGRAM_TOKEN=your-telegram-bot-token-here
-      - NEWSAPI_KEY=NEWSAPIKEY
-      ........
 
+- Отредактируйте `docker-compose.yml` , добавив **TELEGRAM_TOKEN, NEWSAPI_KEY, DB_USER, DB_PASSWORD**:
+
+```dockerfile
+    environment:
+    - TELEGRAM_TOKEN=ваш-токен-бота-telegram   
+    - NEWSAPI_KEY=КЛЮЧ_NEWSAPI
+    - DB_USER=
+    ........
 ```
 
-3. Build and run:
-  ```bash
-  docker-compose up --build -d
-  ```
+1. Соберите и запустите:
 
-## Usage
+```bash
+docker-compose up --build -d
+```
 
-1. Start the bot by messaging /start on Telegram.
-2. Use the commands listed in the help message:
-   - /news bbc - Fetch latest BBC news.
-   - /setsource bloomberg - Set Bloomberg as your default source.
-   - /subscribe - Start the subscription setup process (select source and interval via inline buttons).
-   - /unsubscribe bbc - Stop BBC news updates.
-   - /listsources - See all available news sources.
-   - /listsubscriptions - View your active subscriptions.
+## Использование
 
+1. Запустите бота, отправив команду /start в Telegram.
+2. Используйте команды из сообщения помощи:
+   - /news bbc — Получить последние новости от BBC.
+   - /setsource bloomberg — Установить Bloomberg как источник по умолчанию.
+   - /subscribe — Начать процесс настройки подписки (выберите источник и интервал через встроенные кнопки).
+   - /unsubscribe bbc — Остановить обновления новостей от BBC.
+   - /listsources — Посмотреть все доступные источники новостей.
+   - /listsubscriptions — Просмотреть ваши активные подписки.
 
-## screenshots 
-can be found at [screenshots](/screenshots/)
+## Скриншоты
 
-# Database Schema
+Скриншоты можно найти в разделе [screenshots]()
 
-The Telegram News Bot uses a PostgreSQL database managed via SQLAlchemy to store user information and subscription preferences. Below is the schema for the database models defined in `modules/db.py`.
+# Схема базы данных
 
-## Overview
+Telegram News Bot использует базу данных PostgreSQL, управляемую через SQLAlchemy, для хранения информации о пользователях и предпочтений по подпискам. Ниже приведена схема моделей базы данных, определённых в modules/db.py.
 
-The database consists of two tables:
-- **`users`**: Stores Telegram user information.
-- **`subscriptions`**: Tracks user subscriptions to news sources with delivery intervals.
+## Обзор
 
-The schema is lightweight, designed to support automatic user registration and flexible subscription management without storing news articles.
+База данных состоит из двух таблиц:
 
-## Schema Details
+- **users** — Хранит информацию о пользователях Telegram.
+- **subscriptions** — Отслеживает подписки пользователей на источники новостей с интервалами доставки.
 
-### Table: `users`
+Схема легковесная, разработана для автоматической регистрации пользователей и гибкого управления подписками без хранения самих новостей.
 
-**Purpose**: Stores unique Telegram users based on their chat ID.
+## Подробности схемы
 
-| Column            | Type      | Constraints         | Description                          |
-|-------------------|-----------|---------------------|--------------------------------------|
-| `id`             | Integer   | Primary Key         | Unique identifier for each user.     |
-| `telegram_chat_id` | String    | Unique, Not Null    | Telegram chat ID of the user.        |
+### Таблица: users
 
-- **Primary Key**: `id` (auto-incremented).
-- **Unique Constraint**: `telegram_chat_id` ensures no duplicate users.
+**Назначение**: Хранит уникальных пользователей Telegram на основе их идентификатора чата.
 
-### Table: `subscriptions`
+| Колонка          | Тип         | Ограничения         | Описание                                  |
+| ---------------- | ----------- | ------------------- | ----------------------------------------- |
+| id               | Целое число | Первичный ключ      | Уникальный идентификатор пользователя.    |
+| telegram_chat_id | Строка      | Уникальное, Не null | Идентификатор чата Telegram пользователя. |
 
-**Purpose**: Manages user subscriptions to news sources, including their preferred delivery intervals. Also used to store the default news source (with `interval_hours = 0`).
+- **Первичный ключ**: id (автоинкремент).
+- **Уникальное ограничение**: telegram_chat_id предотвращает дублирование пользователей.
 
-| Column          | Type      | Constraints         | Description                          |
-|-----------------|-----------|---------------------|--------------------------------------|
-| `id`           | Integer   | Primary Key         | Unique identifier for each subscription. |
-| `user_id`      | Integer   | Foreign Key (users.id), Not Null | References the user who owns this subscription. |
-| `source`       | String    | Not Null            | News source (e.g., "bbc", "reuters"). |
-| `interval_hours` | Integer   | Not Null            | Delivery interval in minutes (despite the name, repurposed from hours). 0 indicates default source. |
+### Таблица: subscriptions
 
-- **Primary Key**: `id` (auto-incremented).
-- **Foreign Key**: `user_id` links to `users(id)` with a cascading relationship.
-- **Notes**:
-  - `interval_hours` is named historically but represents minutes in the current implementation (e.g., 15 for 15 minutes, 1440 for 1 day).
-  - A subscription with `interval_hours = 0` denotes the user’s default news source, not an active periodic subscription.
+**Назначение**: Управляет подписками пользователей на источники новостей, включая предпочитаемые интервалы доставки. Также используется для хранения источника по умолчанию (с interval_hours = 0).
 
-## Relationships
+| Колонка        | Тип         | Ограничения                      | Описание                                                     |
+| -------------- | ----------- | -------------------------------- | ------------------------------------------------------------ |
+| id             | Целое число | Первичный ключ                   | Уникальный идентификатор подписки.                           |
+| user_id        | Целое число | Внешний ключ (users.id), Не null | Ссылка на пользователя, владеющего подпиской.                |
+| source         | Строка      | Не null                          | Источник новостей (например, "bbc", "reuters").              |
+| interval_hours | Целое число | Не null                          | Интервал доставки в минутах (несмотря на название, переиспользуется из часов). 0 обозначает источник по умолчанию. |
 
-- **One-to-Many**: One `User` can have multiple `Subscription` entries (e.g., subscriptions to different sources or a default source).
-  - `users.id` → `subscriptions.user_id`.
+- **Первичный ключ**: id (автоинкремент).
+- **Внешний ключ**: user_id связан с users(id) с каскадной зависимостью.
+- Примечания:
+  - interval_hours исторически назван так, но в текущей реализации представляет минуты (например, 15 для 15 минут, 1440 для 1 дня).
+  - Подписка с interval_hours = 0 обозначает источник новостей по умолчанию, а не активную периодическую подписку.
 
+- ## Связи
 
-Extending the Bot
+  - Один ко многим: Один User может иметь несколько записей 
 
-- Add new news sources in config.py and update news_fetcher.py to handle them.
-- Modify modules/db.py to use a different database (e.g., PostgreSQL) by updating the SQLALCHEMY_DATABASE_URL.
+    Subscription
+
+     (например, подписки на разные источники или источник по умолчанию).
+
+    - users.id → subscriptions.user_id.
+
+  ## Расширение бота
+
+  - Добавляйте новые источники новостей в config.py и обновляйте news_fetcher.py для их обработки.
+  - Измените modules/db.py, чтобы использовать другую базу данных (например, PostgreSQL), обновив SQLALCHEMY_DATABASE_URL.

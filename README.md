@@ -47,13 +47,12 @@ NEWS_SOURCES = {    "bloomberg": "bloomberg",    "kommersant": "kommersant",    
   NEWSAPI_KEY=КЛЮЧ_NEWSAPI
   ```
 
-- Отредактируйте `docker-compose.yml` , добавив **TELEGRAM_TOKEN, NEWSAPI_KEY, DB_USER, DB_PASSWORD**:
+- Отредактируйте `docker-compose.yml` , добавив **TELEGRAM_TOKEN, NEWSAPI_KEY**:
 
 ```dockerfile
     environment:
     - TELEGRAM_TOKEN=ваш-токен-бота-telegram   
     - NEWSAPI_KEY=КЛЮЧ_NEWSAPI
-    - DB_USER=
     ........
 ```
 
